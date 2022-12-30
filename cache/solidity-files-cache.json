@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/nikitaguliaev/lottery-smart-contract/contracts/Raffle.sol": {
-      "lastModificationDate": 1672403441899,
-      "contentHash": "acbf4a06db86e179821a6ad500934858",
+      "lastModificationDate": 1672409029335,
+      "contentHash": "8197e83529e1f7b210ada8d8e463a8c8",
       "sourceName": "contracts/Raffle.sol",
       "solcConfig": {
         "version": "0.8.17",
