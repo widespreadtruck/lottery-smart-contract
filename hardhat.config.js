@@ -30,4 +30,12 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
     },
   },
+  gasReporter: {
+    enabled: false,
+    // enabled: REPORT_GAS,
+    currency: "USD",
+    outputFile: "gas-report.txt",
+    noColors: true,
+    // coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+  },
 }
