@@ -18,6 +18,8 @@ const {
       beforeEach(async () => {
         accounts = await ethers.getSigners() // could also do with getNamedAccounts
         //   deployer = accounts[0]
+        // or
+        // deployer = (await getNamedAccounts()).deployer
         player = accounts[1]
         await deployments.fixture(["mocks", "raffle"]) // Deploys modules with the tags "mocks" and "raffle"
         vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock") // Returns a new connection to the VRFCoordinatorV2Mock contract
@@ -41,44 +43,44 @@ const {
         })
       })
 
-      //    describe("enterRaffle", function () {
-      //      it("reverts when you don't pay enough", async () => {
-      //        await expect(raffle.enterRaffle()).to.be.revertedWith(
-      //          // is reverted when not paid enough or raffle is not open
-      //          "Raffle__SendMoreToEnterRaffle"
-      //        )
-      //      })
-      //      it("records player when they enter", async () => {
-      //        await raffle.enterRaffle({ value: raffleEntranceFee })
-      //        const contractPlayer = await raffle.getPlayer(0)
-      //        assert.equal(player.address, contractPlayer)
-      //      })
-      //      it("emits event on enter", async () => {
-      //        await expect(
-      //          raffle.enterRaffle({ value: raffleEntranceFee })
-      //        ).to.emit(
-      //          // emits RaffleEnter event if entered to index player(s) address
-      //          raffle,
-      //          "RaffleEnter"
-      //        )
-      //      })
-      //      it("doesn't allow entrance when raffle is calculating", async () => {
-      //        await raffle.enterRaffle({ value: raffleEntranceFee })
-      //        // for a documentation of the methods below, go here: https://hardhat.org/hardhat-network/reference
-      //        await network.provider.send("evm_increaseTime", [
-      //          interval.toNumber() + 1,
-      //        ])
-      //        await network.provider.request({ method: "evm_mine", params: [] })
-      //        // we pretend to be a keeper for a second
-      //        await raffle.performUpkeep([]) // changes the state to calculating for our comparison below
-      //        await expect(
-      //          raffle.enterRaffle({ value: raffleEntranceFee })
-      //        ).to.be.revertedWith(
-      //          // is reverted as raffle is calculating
-      //          "Raffle__RaffleNotOpen"
-      //        )
-      //      })
-      //    })
+      describe("enterRaffle", function () {
+        it("reverts when you don't pay enough", async () => {
+          await expect(raffle.enterRaffle()).to.be.revertedWith(
+            // is reverted when not paid enough or raffle is not open
+            "Raffle__NotEnoughETHEntered"
+          )
+        })
+        it("records player when they enter", async () => {
+          await raffle.enterRaffle({ value: raffleEntranceFee })
+          const contractPlayer = await raffle.getPlayer(0)
+          assert.equal(player.address, contractPlayer)
+        })
+        it("emits event on enter", async () => {
+          await expect(
+            raffle.enterRaffle({ value: raffleEntranceFee })
+          ).to.emit(
+            // emits RaffleEnter event if entered to index player(s) address
+            raffle,
+            "RaffleEnter"
+          )
+        })
+        it("doesn't allow entrance when raffle is calculating", async () => {
+          await raffle.enterRaffle({ value: raffleEntranceFee })
+          // docs of the methods below here: https://hardhat.org/hardhat-network/reference
+          await network.provider.send("evm_increaseTime", [
+            interval.toNumber() + 1,
+          ])
+          await network.provider.request({ method: "evm_mine", params: [] })
+          // we pretend to be a keeper for a second
+          await raffle.performUpkeep([]) // changes the state to calculating for our comparison below
+          await expect(
+            raffle.enterRaffle({ value: raffleEntranceFee })
+          ).to.be.revertedWith(
+            // is reverted as raffle is calculating
+            "Raffle__RaffleNotOpen"
+          )
+        })
+      })
       //    describe("checkUpkeep", function () {
       //      it("returns false if people haven't sent any ETH", async () => {
       //        await network.provider.send("evm_increaseTime", [
