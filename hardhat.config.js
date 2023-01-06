@@ -38,14 +38,18 @@ module.exports = {
     noColors: true,
     // coinmarketcap: process.env.COINMARKETCAP_API_KEY,
   },
+  contractSizer: {
+    runOnCompile: false,
+    only: ["Raffle"],
+  },
   mocha: {
-    timeout: 300000, // 300 seconds
+    timeout: 800000, // 300 seconds
   },
   etherscan: {
     // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
     apiKey: {
-      goerli: ETHERSCAN_API_KEY,
-      polygon: POLYGONSCAN_API_KEY,
+      goerli: process.env.ETHERSCAN_API_KEY,
+      // polygon: POLYGONSCAN_API_KEY,
     },
     customChains: [
       {
