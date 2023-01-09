@@ -148,7 +148,7 @@ const {
           const txResponse = await raffle.performUpkeep("0x") // emits requestId
           const txReceipt = await txResponse.wait(1) // waits 1 block
           const raffleState = await raffle.getRaffleState() // updates state
-          const requestId = txReceipt.events[1].args.requestId
+          const requestId = txReceipt.events[1].args[0]
           assert(requestId.toNumber() > 0)
           assert(raffleState == 1) // 0 = open, 1 = calculating
         })

@@ -8,10 +8,20 @@ require("dotenv").config()
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.17",
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.17",
+      },
+      {
+        version: "0.4.24",
+      },
+    ],
+  },
   namedAccounts: {
     deployer: {
       default: 0,
+      1: 0,
     },
     player: {
       default: 1,
@@ -23,11 +33,15 @@ module.exports = {
       chainId: 31337,
       blockConfirmations: 1,
     },
+    localhost: {
+      chainId: 31337,
+    },
     goerli: {
       chainId: 5,
       blockConfirmations: 6,
       url: process.env.GOERLI_RPC_URL,
       accounts: [process.env.PRIVATE_KEY],
+      saveDeployments: true,
     },
   },
   gasReporter: {
@@ -43,7 +57,7 @@ module.exports = {
     only: ["Raffle"],
   },
   mocha: {
-    timeout: 800000, // 300 seconds
+    timeout: 100000, // 500 seconds
   },
   etherscan: {
     // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
