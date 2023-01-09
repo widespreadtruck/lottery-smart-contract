@@ -11,6 +11,10 @@ developmentChains.includes(network.name)
         deployer = (await getNamedAccounts()).deployer
         raffle = await ethers.getContract("Raffle", deployer)
         raffleEntranceFee = await raffle.getEntranceFee()
+        console.log(
+          "raffleEntranceFee:",
+          raffleEntranceFee
+        )
       })
 
       describe("fulfillRandomWords", function () {
@@ -50,10 +54,12 @@ developmentChains.includes(network.name)
             // Then entering the raffle
             console.log("Entering Raffle...")
             const tx = await raffle.enterRaffle({ value: raffleEntranceFee })
+            console.log("tx:", tx)
+
             await tx.wait(1)
             console.log("Ok, time to wait...")
             const winnerStartingBalance = await accounts[0].getBalance()
-
+            console.log("winnerStartingBalance:", winnerStartingBalance)
             // and this code WONT complete until our listener has finished listening!
           })
         })

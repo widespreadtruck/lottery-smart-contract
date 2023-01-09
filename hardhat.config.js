@@ -57,7 +57,7 @@ module.exports = {
     only: ["Raffle"],
   },
   mocha: {
-    timeout: 100000, // 500 seconds
+    timeout: 500000, // 500 seconds
   },
   etherscan: {
     // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
