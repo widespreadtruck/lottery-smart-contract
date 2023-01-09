@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import ManualHeader from "../components/Header"
+import ManualHeader from "../components/ManualHeader"
 
 
 export default function Home() {
