@@ -1,5 +1,6 @@
 import Head from 'next/head'
-import ManualHeader from "../components/ManualHeader"
+// import ManualHeader from "../components/ManualHeader"
+import Header from "../components/Header"
 
 
 export default function Home() {
@@ -12,7 +13,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Connect nav bar */}
-      <ManualHeader />
+      {/* <ManualHeader /> */}
+      <Header />
     </div>
   )
 }
