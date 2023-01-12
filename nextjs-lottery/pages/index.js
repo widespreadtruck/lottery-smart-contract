@@ -15,7 +15,6 @@ export default function Home() {
       </Head>
       {/* Connect nav bar */}
       {/* <ManualHeader /> */}
-      <div>Decentralized Lottery</div>
       <Header />
       <LotteryEntrance />
     </div>
