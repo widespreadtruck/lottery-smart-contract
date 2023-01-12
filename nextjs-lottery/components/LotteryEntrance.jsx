@@ -21,7 +21,7 @@ const LotteryEntrance = () => {
   // get contract instance
   //   const contract = new ethers.Contract(raffleAddress, abi, web3)
 
-  const { runContractFunction: enterRaffle } = useWeb3Contract({
+  const { runContractFunction: enterRaffle, isFetching, isLoading } = useWeb3Contract({
     abi: abi,
     contractAddress: raffleAddress,
     functionName: "enterRaffle",
@@ -103,18 +103,20 @@ const LotteryEntrance = () => {
   }
 
   return (
-    <div>
+    <div className="p-5">
       {raffleAddress ? (
         <div>
           <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded ml-auto"
             onClick={async function () {
               await enterRaffle({
                 onSuccess: handleSuccess,
                 onError: (error) => console.log(error),
               })
             }}
+            disabled={isLoading || isFetching}
           >
-            Enter Raffle
+            {isLoading || isFetching ? <div className='animate-spin spinner-border border-b-2 h-8 w-8 rounded-full'></div> : <div>Enter Raffle</div>}
           </button>
           <div>{`Entrance Fee is ${ethers.utils.formatUnits(
             entranceFee,
