@@ -1,6 +1,7 @@
 import Head from 'next/head'
 // import ManualHeader from "../components/ManualHeader"
 import Header from "../components/Header"
+import LotteryEntrance from "../components/LotteryEntrance"
 
 
 export default function Home() {
@@ -14,7 +15,9 @@ export default function Home() {
       </Head>
       {/* Connect nav bar */}
       {/* <ManualHeader /> */}
+      <div>Decentralized Lottery</div>
       <Header />
+      <LotteryEntrance />
     </div>
   )
 }

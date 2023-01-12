@@ -102,13 +102,12 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     override
     returns (bool upkeepNeeded, bytes memory /* performData */)
   {
-    bool isOpen = (RaffleState.OPEN == s_raffleState);
-    //winner to be selected every X mins
-    bool timePassed = (block.timestamp - s_lastTimeStamp) > i_interval;
-    bool hasPlayers = (s_players.length > 0);
-    bool balance = address(this).balance > 0;
-    upkeepNeeded = (isOpen && timePassed && hasPlayers && balance);
-    return (upkeepNeeded, "0x0");
+    bool isOpen = RaffleState.OPEN == s_raffleState;
+    bool timePassed = ((block.timestamp - s_lastTimeStamp) > i_interval);
+    bool hasPlayers = s_players.length > 0;
+    bool hasBalance = address(this).balance > 0;
+    upkeepNeeded = (timePassed && isOpen && hasBalance && hasPlayers);
+    return (upkeepNeeded, "0x0"); // can we comment this out?
   }
 
   //pick winner
